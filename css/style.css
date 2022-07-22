@@ -75,7 +75,7 @@ input::placeholder {
   margin-left: 15px;
 }
 
-.cards {
+.nfts {
   width: 924px;
 
   margin-top: 21px;
@@ -84,36 +84,36 @@ input::placeholder {
   grid-template-columns: repeat(3, 1fr);
 }
 
-.card {
+.nft {
   height: 447px;
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0px 4px 15px 0px #00000040;
 }
-.card__color {
+.nft__color {
   height: 297px;
   background-color: aquamarine;
 }
-.card__detail {
+.nft__detail {
   height: 150px;
   background-color: white;
   padding: 10px;
 }
 
-.card__detail__name {
+.nft__detail__name {
   margin-bottom: 19px;
 }
 
-.card__detail__name > p:first-child {
+.nft__detail__name > p:first-child {
   margin-bottom: 6px;
   font-weight: 800;
 }
 
-.card__detail__name > p:last-child {
+.nft__detail__name > p:last-child {
   margin-bottom: 6px;
 }
 
-.card__detail__price > p:first-child {
+.nft__detail__price > p:first-child {
   margin-bottom: 6px;
   font-weight: 800;
 }

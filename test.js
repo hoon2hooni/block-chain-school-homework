@@ -9,26 +9,25 @@ const price = filter.children[1];
 
 //global variables
 let inputValue = "";
-let filteredCards = [];
+let filteredNfts = [];
 
-input.addEventListener("keypress", enterEvent);
+input.addEventListener("keypress", searchNfts);
 name.addEventListener("click", clickEvent(sorByName, "name"));
 price.addEventListener("click", clickEvent(sortByPrice, "price"));
 
-
-function enterEvent(e) {
+function searchNfts(e) {
   if (e.code === "Enter") {
     inputValue = input.value;
-    filteredCards = nfts.filter(({ name }) => name.includes(inputValue));
-    replaceCards(filteredCards);
+    filteredNfts = nfts.filter(({ name }) => name.includes(inputValue));
+    replaceNfts(filteredNfts);
   }
 }
 
 function clickEvent(callback, sortBy) {
   return (e) => {
     e.stopPropagation();
-    filteredCards.sort(callback);
-    replaceCards(filteredCards);
+    filteredNfts.sort(callback);
+    replaceNfts(filteredNfts);
     toggleFilters(sortBy);
   };
 }
@@ -43,21 +42,21 @@ function sortByPrice(n, m) {
   return a < b ? 1 : -1;
 }
 
-function replaceCards(filteredCards) {
-  removePrevCards();
-  appendCurrentCards(filteredCards);
+function replaceNfts(filteredNfts) {
+  removePrevNfts();
+  appendCurrentNfts(filteredNfts);
 }
 
-function removePrevCards() {
+function removePrevNfts() {
   if (main.children.length === 2) {
     main.removeChild(main.children[1]);
   }
 }
 
-function appendCurrentCards(filteredCards) {
-  if (filteredCards.length) {
-    const cards = generateCards(filteredCards);
-    main.appendChild(cards);
+function appendCurrentNfts(filteredNfts) {
+  if (filteredNfts.length) {
+    const nfts = generateNfts(filteredNfts);
+    main.appendChild(nfts);
     filter.classList.remove("hidden");
   } else {
     filter.classList.add("hidden");
@@ -74,25 +73,25 @@ function toggleFilters(sortBy) {
   }
 }
 
-function generateCards(filteredCards) {
-  const cards = document.createElement("div");
-  cards.className += "cards";
-  for (const nft of filteredCards) {
-    cards.innerHTML += getCard(nft);
+function generateNfts(filteredNfts) {
+  const nfts = document.createElement("div");
+  nfts.className += "nfts";
+  for (const nft of filteredNfts) {
+    nfts.innerHTML += getNft(nft);
   }
-  return cards;
+  return nfts;
 }
 
-function getCard(nft) {
+function getNft(nft) {
   return `
-  <div class="card">
-          <div class="card__color" style="background-color:${nft.color};"> </div>
-          <div class="card__detail">
-            <div class="card__detail__name">
+  <div class="nft">
+          <div class="nft__color" style="background-color:${nft.color};"> </div>
+          <div class="nft__detail">
+            <div class="nft__detail__name">
               <p>NFT</p>
               <p>${nft.name}</p>
             </div>
-            <div class="card__detail__price">
+            <div class="nft__detail__price">
               <p>Price</p>
               <p>${nft.price} Either</p>
             </div>
