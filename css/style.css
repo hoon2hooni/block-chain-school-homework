@@ -35,7 +35,7 @@ input {
   width: auto;
   height: 27px;
   border: none;
-  margin-left: 64px;
+  margin-left: 27px;
   font-family: "Inter";
   font-weight: 400;
   font-size: 20px;
@@ -52,7 +52,7 @@ input::placeholder {
   font-size: 20px;
 }
 
-.input-wrapper {
+.search-bar {
   margin-top: 54px;
   width: 500px;
   height: 50px;
@@ -60,8 +60,36 @@ input::placeholder {
   align-items: center;
   border: 2px solid #e5e8eb;
   border-radius: 10px;
+  position: relative;
 }
 
+.search-bar__recommendations {
+  position: absolute;
+  top: 55px;
+  z-index: 10;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid #e5e8eb;
+}
+
+.search-bar__recommendations > li {
+  box-sizing: border-box;
+  width: 500px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  border: 1px solid #e5e8eb;
+  padding-left: 64px;
+  font-family: "Inter";
+  font-weight: 400;
+  font-size: 20px;
+  background-color: white;
+}
+
+.search-bar__recommendations > li:hover {
+  color: red;
+  cursor: pointer;
+}
 .filter {
   display: flex;
   flex-direction: row;
@@ -124,4 +152,9 @@ input::placeholder {
 
 .clicked {
   color: red;
+}
+
+.icon {
+  display: block;
+  margin-left: 12px;
 }
