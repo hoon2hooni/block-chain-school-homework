@@ -1,0 +1,14 @@
+{
+  "name": "블록체인 스쿨 멋사 과제",
+  "version": "1.0.0",
+  "description": "",
+  "main": "make.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^10.3.1"
+  }
+}

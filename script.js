@@ -41,7 +41,7 @@ function searchNfts(e) {
       recommendations = filteredNfts.map(({ name }) => name);
       replaceElement(searchBar, recommendations, generateRecommendationsEl);
     } else {
-      resetElement(cloneSearchBar);
+      resetElement(searchBar);
     }
   }
 }
@@ -110,6 +110,7 @@ function toggleClickedAButton(buttonName) {
 function generateNfts(filteredNfts) {
   const nfts = document.createElement("div");
   nfts.classList.add("nfts");
+  nfts.setAttribute("data-cy", "nfts");
   for (const nft of filteredNfts) {
     nfts.innerHTML += getNft(nft);
   }
@@ -119,6 +120,7 @@ function generateNfts(filteredNfts) {
 function generateRecommendationsEl(recommendations) {
   const ul = document.createElement("ul");
   ul.classList.add("search-bar__recommendations");
+  ul.setAttribute('data-cy','recommendations')
   for (const recommendation of recommendations) {
     ul.innerHTML += getRecommendation(recommendation);
   }

@@ -12,12 +12,19 @@
       </div>
       <div class="search-bar">
         <img src="./serach_icon.svg" class="icon" />
-        <input id="input" type="text" placeholder="NFT 이름을 입력해주세요" />
+        <input
+          id="input"
+          type="text"
+          placeholder="NFT 이름을 입력해주세요"
+          data-cy="input"
+        />
       </div>
     </div>
     <main>
-      <div class="filter hidden"><div> Name </div> <div>Price</div> </div>
+      <div class="filter hidden"
+        ><div data-cy="name"> Name </div> <div data-cy="price">Price</div>
+      </div>
     </main>
-    <script type="module" src="./test.js"></script>
+    <script type="module" src="./script.js"></script>
   </body>
 </html>
