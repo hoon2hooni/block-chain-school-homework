@@ -22,22 +22,27 @@ describe("과제 체점", () => {
 
   context("level 1 검색후 실행", () => {
     it("사자 검색", () => {
-      cy.get('[data-cy="input"]').type("lion{enter}").clear();
+      cy.get('[data-cy="input"]').type("lion");
+      cy.get('[data-cy="icon"]').click();
       cy.get('[data-cy="nfts"]').children().should("have.length", 6);
     });
     it("강아지 검색", () => {
-      cy.get('[data-cy="input"]').type("dog{enter}").clear();
+      cy.get('[data-cy="input"]').type("dog");
+      cy.get('[data-cy="icon"]').click();
       cy.get('[data-cy="nfts"]').children().should("have.length", 4);
     });
     it("고양이 검색", () => {
-      cy.get('[data-cy="input"]').type("cat{enter}");
+      cy.get('[data-cy="input"]').type("cat");
+      cy.get('[data-cy="icon"]').click();
       cy.get('[data-cy="nfts"]').children().should("have.length", 4);
     });
   });
 
   context("level 2 정렬", () => {
     it("사자 검색 후 정렬", () => {
-      cy.get('[data-cy="input"]').type("lion{enter}");
+      cy.get('[data-cy="input"]').type("lion");
+      cy.get('[data-cy="icon"]').click();
+
       cy.get('[data-cy="price"]').click();
       cy.get('[data-cy="nfts"]').children().first().contains("0.816");
 
@@ -45,7 +50,8 @@ describe("과제 체점", () => {
       cy.get('[data-cy="nfts"]').children().first().contains("Lion 13");
     });
     it("강아지 검색 후 정렬", () => {
-      cy.get('[data-cy="input"]').type("dog{enter}");
+      cy.get('[data-cy="input"]').type("dog");
+      cy.get('[data-cy="icon"]').click();
 
       cy.get('[data-cy="price"]').click();
       cy.get('[data-cy="nfts"]').children().first().contains("0.900");
@@ -55,7 +61,8 @@ describe("과제 체점", () => {
     });
 
     it("고양이 검색 후 정렬", () => {
-      cy.get('[data-cy="input"]').type("cat{enter}");
+      cy.get('[data-cy="input"]').type("cat");
+      cy.get('[data-cy="icon"]').click();
 
       cy.get('[data-cy="price"]').click();
       cy.get('[data-cy="nfts"]').children().first().contains("0.566");
@@ -68,13 +75,16 @@ describe("과제 체점", () => {
   context("level 3 자동완성 창", () => {
     it("사자 자동완성 입력후 클릭", () => {
       cy.get('[data-cy="input"]').type("lio");
+
       cy.get('[data-cy="recommendations"]').children().should("have.length", 6);
       cy.get('[data-cy="recommendations"]').children().first().click();
+
       cy.get('[data-cy="nfts').children().should("have.length", 1);
     });
 
     it("강아지 자동완성 입력후 클릭", () => {
       cy.get('[data-cy="input"]').type("dog");
+
       cy.get('[data-cy="recommendations"]').children().should("have.length", 4);
       cy.get('[data-cy="recommendations"]').children().first().click();
       cy.get('[data-cy="nfts').children().should("have.length", 1);
@@ -82,6 +92,7 @@ describe("과제 체점", () => {
 
     it("고양이 자동완성 입력후 클릭", () => {
       cy.get('[data-cy="input"]').type("cat");
+
       cy.get('[data-cy="recommendations"]').children().should("have.length", 4);
       cy.get('[data-cy="recommendations"]').children().first().click();
       cy.get('[data-cy="nfts').children().should("have.length", 1);

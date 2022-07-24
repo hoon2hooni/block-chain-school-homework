@@ -15,44 +15,40 @@ let inputValue = "";
 let filteredNfts = [];
 let recommendations = [];
 
-input.addEventListener("keyup", searchNfts);
-name.addEventListener("click", clickEvent(sorByName, "name"));
-price.addEventListener("click", clickEvent(sortByPrice, "price"));
+input.addEventListener("keyup", typeInput);
+name.addEventListener("click", handleClickSort(sorByName, "name"));
+price.addEventListener("click", handleClickSort(sortByPrice, "price"));
+svg.addEventListener("click", handleClickSearch);
 
-svg.addEventListener("click", (e) => {
-  e.stopPropagation();
+
+function typeInput() {
   inputValue = input.value;
   filteredNfts = getFilteredNfts(nfts, inputValue);
-  replaceElement(main, filteredNfts, generateNfts);
-  toggleShownFilters(filteredNfts);
-  resetElement(searchBar);
-});
-
-function searchNfts(e) {
-  e.stopPropagation();
-  inputValue = input.value;
-  filteredNfts = getFilteredNfts(nfts, inputValue);
-  if (e.code === "Enter") {
-    replaceElement(main, filteredNfts, generateNfts);
-    toggleShownFilters(filteredNfts);
-    resetElement(searchBar);
+  if (input.value) {
+    recommendations = filteredNfts.map(({ name }) => name);
+    replaceElement(searchBar, recommendations, generateRecommendationsEl);
   } else {
-    if (input.value) {
-      recommendations = filteredNfts.map(({ name }) => name);
-      replaceElement(searchBar, recommendations, generateRecommendationsEl);
-    } else {
-      resetElement(searchBar);
-    }
+    resetElement(searchBar);
   }
 }
 
-function clickEvent(callback, sortBy) {
-  return (e) => {
-    e.stopPropagation();
+function handleClickSort(callback, sortBy) {
+  return () => {
     filteredNfts.sort(callback);
     replaceElement(main, filteredNfts, generateNfts);
     toggleClickedAButton(sortBy);
   };
+}
+
+function handleClickSearch() {
+  inputValue = input.value;
+  if (!inputValue) {
+    return;
+  }
+  filteredNfts = getFilteredNfts(nfts, inputValue);
+  replaceElement(main, filteredNfts, generateNfts);
+  toggleShownFilters(filteredNfts);
+  resetElement(searchBar);
 }
 
 function sorByName(n, m) {
@@ -120,16 +116,13 @@ function generateNfts(filteredNfts) {
 function generateRecommendationsEl(recommendations) {
   const ul = document.createElement("ul");
   ul.classList.add("search-bar__recommendations");
-  ul.setAttribute('data-cy','recommendations')
+  ul.setAttribute("data-cy", "recommendations");
   for (const recommendation of recommendations) {
     ul.innerHTML += getRecommendation(recommendation);
   }
   ul.addEventListener("click", (e) => {
-    inputValue = e.target.textContent;
-    filteredNfts = getFilteredNfts(nfts, inputValue);
-    replaceElement(main, filteredNfts, generateNfts);
-    toggleShownFilters(filteredNfts);
-    resetElement(searchBar);
+    input.value = e.target.textContent;
+    handleClickSearch();
   });
 
   return ul;
