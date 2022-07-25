@@ -90,7 +90,7 @@ input::placeholder {
   color: red;
   cursor: pointer;
 }
-.filter {
+.sort-buttons {
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
@@ -99,7 +99,7 @@ input::placeholder {
   cursor: pointer;
 }
 
-.filter > div:last-child {
+.sort-buttons > div:last-child {
   margin-left: 15px;
 }
 
@@ -110,6 +110,7 @@ input::placeholder {
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(3, 1fr);
+  padding-bottom: 20px;
 }
 
 .nft {

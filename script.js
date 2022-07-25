@@ -1,54 +1,57 @@
 import nfts from "./nft.json" assert { type: "json" };
 
 //global elements
-const input = document.querySelector("#input");
-let main = document.querySelector("main");
-const filter = document.querySelector(".filter");
-let searchBar = document.querySelector(".search-bar");
+const inputEl = document.querySelector("#input");
+let mainEl = document.querySelector("main");
+const filterEl = document.querySelector(".sort-buttons");
+let searchBarEl = document.querySelector(".search-bar");
 
-const name = filter.children[0];
-const price = filter.children[1];
+mainEl.basicChildrenCounts = mainEl.children.length;
+searchBarEl.basicChildrenCounts = mainEl.children.length;
+
+const name = filterEl.children[0];
+const price = filterEl.children[1];
 const svg = document.querySelector(".icon");
 
-//global variables
+//global state
 let inputValue = "";
-let filteredNfts = [];
+let searchedNfts = [];
 let recommendations = [];
 
-input.addEventListener("keyup", typeInput);
+inputEl.addEventListener("keyup", typeInput);
 name.addEventListener("click", handleClickSort(sorByName, "name"));
 price.addEventListener("click", handleClickSort(sortByPrice, "price"));
 svg.addEventListener("click", handleClickSearch);
 
-
 function typeInput() {
-  inputValue = input.value;
-  filteredNfts = getFilteredNfts(nfts, inputValue);
-  if (input.value) {
-    recommendations = filteredNfts.map(({ name }) => name);
-    replaceElement(searchBar, recommendations, generateRecommendationsEl);
+  inputValue = inputEl.value;
+  searchedNfts = getSearchedNfts(nfts, inputValue);
+  if (inputEl.value) {
+    recommendations = searchedNfts.map(({ name }) => name);
+    replaceElement(searchBarEl, recommendations, generateRecommendationsEl);
   } else {
-    resetElement(searchBar);
+    resetElement(searchBarEl);
   }
 }
 
 function handleClickSort(callback, sortBy) {
   return () => {
-    filteredNfts.sort(callback);
-    replaceElement(main, filteredNfts, generateNfts);
-    toggleClickedAButton(sortBy);
+    searchedNfts.sort(callback);
+    replaceElement(mainEl, searchedNfts, generateNftsEl);
+    toggleClickedSortButtons(sortBy);
   };
 }
 
 function handleClickSearch() {
-  inputValue = input.value;
+  inputValue = inputEl.value;
   if (!inputValue) {
     return;
   }
-  filteredNfts = getFilteredNfts(nfts, inputValue);
-  replaceElement(main, filteredNfts, generateNfts);
-  toggleShownFilters(filteredNfts);
-  resetElement(searchBar);
+  searchedNfts = getSearchedNfts(nfts, inputValue);
+  replaceElement(mainEl, searchedNfts, generateNftsEl);
+  toggleShownSortButtons(searchedNfts);
+  resetElement(searchBarEl);
+  resetClickedSortButtons();
 }
 
 function sorByName(n, m) {
@@ -67,14 +70,8 @@ function replaceElement(element, data, callback) {
 }
 
 function resetElement(element) {
-  if (element === searchBar) {
-    if (element.children.length === 3) {
-      element.removeChild(element.lastElementChild);
-    }
-  } else {
-    if (element.children.length === 2) {
-      element.removeChild(element.lastElementChild);
-    }
+  if (element.children.length !== element.basicChildrenCounts) {
+    element.removeChild(element.lastElementChild);
   }
 }
 
@@ -85,15 +82,15 @@ function appendChildrenWithCallback(element, data, callback) {
   }
 }
 
-function toggleShownFilters(filteredNfts) {
+function toggleShownSortButtons(filteredNfts) {
   if (filteredNfts.length) {
-    filter.classList.remove("hidden");
+    filterEl.classList.remove("hidden");
   } else {
-    filter.classList.add("hidden");
+    filterEl.classList.add("hidden");
   }
 }
 
-function toggleClickedAButton(buttonName) {
+function toggleClickedSortButtons(buttonName) {
   if (buttonName === "name") {
     name.classList.add("clicked");
     price.classList.remove("clicked");
@@ -103,29 +100,34 @@ function toggleClickedAButton(buttonName) {
   }
 }
 
-function generateNfts(filteredNfts) {
-  const nfts = document.createElement("div");
-  nfts.classList.add("nfts");
-  nfts.setAttribute("data-cy", "nfts");
-  for (const nft of filteredNfts) {
-    nfts.innerHTML += getNft(nft);
+function resetClickedSortButtons() {
+  name.classList.remove("clicked");
+  price.classList.remove("clicked");
+}
+
+function generateNftsEl(nfts) {
+  const nftsEl = document.createElement("div");
+  nftsEl.classList.add("nfts");
+  nftsEl.setAttribute("data-cy", "nfts");
+  for (const nft of nfts) {
+    nftsEl.innerHTML += getNft(nft);
   }
-  return nfts;
+  return nftsEl;
 }
 
 function generateRecommendationsEl(recommendations) {
-  const ul = document.createElement("ul");
-  ul.classList.add("search-bar__recommendations");
-  ul.setAttribute("data-cy", "recommendations");
+  const recommendationsEl = document.createElement("ul");
+  recommendationsEl.classList.add("search-bar__recommendations");
+  recommendationsEl.setAttribute("data-cy", "recommendations");
   for (const recommendation of recommendations) {
-    ul.innerHTML += getRecommendation(recommendation);
+    recommendationsEl.innerHTML += getRecommendation(recommendation);
   }
-  ul.addEventListener("click", (e) => {
-    input.value = e.target.textContent;
+  recommendationsEl.addEventListener("click", (e) => {
+    inputEl.value = e.target.textContent;
     handleClickSearch();
   });
 
-  return ul;
+  return recommendationsEl;
 }
 
 function getNft(nft) {
@@ -150,7 +152,7 @@ function getRecommendation(recommendation) {
   return `<li>${recommendation}</li>`;
 }
 
-function getFilteredNfts(nfts, inputValue) {
+function getSearchedNfts(nfts, inputValue) {
   return nfts.filter(({ name }) =>
     name.toLowerCase().includes(inputValue.toLowerCase())
   );
