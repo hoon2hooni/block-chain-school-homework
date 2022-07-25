@@ -63,7 +63,7 @@ input::placeholder {
   position: relative;
 }
 
-.search-bar__recommendations {
+.search-bar__autocompletes {
   position: absolute;
   top: 55px;
   z-index: 10;
@@ -72,7 +72,7 @@ input::placeholder {
   border: 1px solid #e5e8eb;
 }
 
-.search-bar__recommendations > li {
+.search-bar__autocompletes > li {
   box-sizing: border-box;
   width: 500px;
   height: 50px;
@@ -86,7 +86,7 @@ input::placeholder {
   background-color: white;
 }
 
-.search-bar__recommendations > li:hover {
+.search-bar__autocompletes > li:hover {
   color: red;
   cursor: pointer;
 }

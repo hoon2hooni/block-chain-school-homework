@@ -3,32 +3,32 @@ import nfts from "./nft.json" assert { type: "json" };
 //global elements
 const inputEl = document.querySelector("#input");
 let mainEl = document.querySelector("main");
-const filterEl = document.querySelector(".sort-buttons");
+const sortEl = document.querySelector(".sort-buttons");
 let searchBarEl = document.querySelector(".search-bar");
 
 mainEl.basicChildrenCounts = mainEl.children.length;
-searchBarEl.basicChildrenCounts = mainEl.children.length;
+searchBarEl.basicChildrenCounts = searchBarEl.children.length;
 
-const name = filterEl.children[0];
-const price = filterEl.children[1];
-const svg = document.querySelector(".icon");
+const nameEl = sortEl.children[0];
+const priceEl = sortEl.children[1];
+const iconEl = document.querySelector(".icon");
 
 //global state
 let inputValue = "";
 let searchedNfts = [];
-let recommendations = [];
+let autocompletes = [];
 
 inputEl.addEventListener("keyup", typeInput);
-name.addEventListener("click", handleClickSort(sorByName, "name"));
-price.addEventListener("click", handleClickSort(sortByPrice, "price"));
-svg.addEventListener("click", handleClickSearch);
+nameEl.addEventListener("click", handleClickSort(sorByName, "name"));
+priceEl.addEventListener("click", handleClickSort(sortByPrice, "price"));
+iconEl.addEventListener("click", handleClickSearch);
 
 function typeInput() {
   inputValue = inputEl.value;
   searchedNfts = getSearchedNfts(nfts, inputValue);
   if (inputEl.value) {
-    recommendations = searchedNfts.map(({ name }) => name);
-    replaceElement(searchBarEl, recommendations, generateRecommendationsEl);
+    autocompletes = searchedNfts.map(({ name }) => name);
+    replaceElement(searchBarEl, autocompletes, generateAutocompletesEl);
   } else {
     resetElement(searchBarEl);
   }
@@ -84,25 +84,25 @@ function appendChildrenWithCallback(element, data, callback) {
 
 function toggleShownSortButtons(filteredNfts) {
   if (filteredNfts.length) {
-    filterEl.classList.remove("hidden");
+    sortEl.classList.remove("hidden");
   } else {
-    filterEl.classList.add("hidden");
+    sortEl.classList.add("hidden");
   }
 }
 
 function toggleClickedSortButtons(buttonName) {
   if (buttonName === "name") {
-    name.classList.add("clicked");
-    price.classList.remove("clicked");
+    nameEl.classList.add("clicked");
+    priceEl.classList.remove("clicked");
   } else {
-    name.classList.remove("clicked");
-    price.classList.add("clicked");
+    nameEl.classList.remove("clicked");
+    priceEl.classList.add("clicked");
   }
 }
 
 function resetClickedSortButtons() {
-  name.classList.remove("clicked");
-  price.classList.remove("clicked");
+  nameEl.classList.remove("clicked");
+  priceEl.classList.remove("clicked");
 }
 
 function generateNftsEl(nfts) {
@@ -115,19 +115,19 @@ function generateNftsEl(nfts) {
   return nftsEl;
 }
 
-function generateRecommendationsEl(recommendations) {
-  const recommendationsEl = document.createElement("ul");
-  recommendationsEl.classList.add("search-bar__recommendations");
-  recommendationsEl.setAttribute("data-cy", "recommendations");
-  for (const recommendation of recommendations) {
-    recommendationsEl.innerHTML += getRecommendation(recommendation);
+function generateAutocompletesEl(autocompletes) {
+  const autocompletesEl = document.createElement("ul");
+  autocompletesEl.classList.add("search-bar__autocompletes");
+  autocompletesEl.setAttribute("data-cy", "autocompletes");
+  for (const autocomplete of autocompletes) {
+    autocompletesEl.innerHTML += getAutocomplete(autocomplete);
   }
-  recommendationsEl.addEventListener("click", (e) => {
+  autocompletesEl.addEventListener("click", (e) => {
     inputEl.value = e.target.textContent;
     handleClickSearch();
   });
 
-  return recommendationsEl;
+  return autocompletesEl;
 }
 
 function getNft(nft) {
@@ -148,8 +148,8 @@ function getNft(nft) {
         `;
 }
 
-function getRecommendation(recommendation) {
-  return `<li>${recommendation}</li>`;
+function getAutocomplete(autocomplete) {
+  return `<li>${autocomplete}</li>`;
 }
 
 function getSearchedNfts(nfts, inputValue) {
