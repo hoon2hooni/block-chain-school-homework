@@ -5,13 +5,14 @@ html {
   align-items: center;
   font-family: "Inter", sans-serif;
 }
+
 body {
   width: 1300px;
   min-height: 1100px;
   background-color: white;
 }
 
-.header {
+header {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,11 +24,6 @@ main {
   flex-direction: column;
   align-items: center;
   margin-top: 152px;
-}
-.logo {
-  font-size: 96px;
-  font-weight: 800;
-  line-height: 116px;
 }
 
 input {
@@ -52,6 +48,12 @@ input::placeholder {
   font-size: 20px;
 }
 
+.logo {
+  font-size: 96px;
+  font-weight: 800;
+  line-height: 116px;
+}
+
 .search-bar {
   margin-top: 54px;
   width: 500px;
@@ -72,24 +74,6 @@ input::placeholder {
   border: 1px solid #e5e8eb;
 }
 
-.search-bar__autocompletes > li {
-  box-sizing: border-box;
-  width: 500px;
-  height: 50px;
-  display: flex;
-  align-items: center;
-  border: 1px solid #e5e8eb;
-  padding-left: 64px;
-  font-family: "Inter";
-  font-weight: 400;
-  font-size: 20px;
-  background-color: white;
-}
-
-.search-bar__autocompletes > li:hover {
-  color: red;
-  cursor: pointer;
-}
 .sort-buttons {
   display: flex;
   flex-direction: row;
@@ -105,7 +89,6 @@ input::placeholder {
 
 .nfts {
   width: 924px;
-
   margin-top: 21px;
   display: grid;
   gap: 16px;
@@ -113,43 +96,6 @@ input::placeholder {
   padding-bottom: 20px;
 }
 
-.nft {
-  height: 447px;
-  border-radius: 10px;
-  overflow: hidden;
-  box-shadow: 0px 4px 15px 0px #00000040;
-}
-.nft__color {
-  height: 297px;
-  background-color: aquamarine;
-}
-.nft__detail {
-  height: 150px;
-  background-color: white;
-  padding: 10px;
-}
-
-.nft__detail__name {
-  margin-bottom: 19px;
-}
-
-.nft__detail__name > p:first-child {
-  margin-bottom: 6px;
-  font-weight: 800;
-}
-
-.nft__detail__name > p:last-child {
-  margin-bottom: 6px;
-}
-
-.nft__detail__price > p:first-child {
-  margin-bottom: 6px;
-  font-weight: 800;
-}
-
-.clicked {
-  color: red;
-}
 
 .icon {
   display: block;
