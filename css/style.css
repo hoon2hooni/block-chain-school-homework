@@ -147,10 +147,6 @@ input::placeholder {
   font-weight: 800;
 }
 
-.hidden {
-  visibility: hidden;
-}
-
 .clicked {
   color: red;
 }

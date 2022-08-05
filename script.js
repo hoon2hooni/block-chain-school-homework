@@ -66,7 +66,6 @@ function handleClickSearch() {
   }
   searchedNfts = getSearchedNfts(nfts, inputValue);
   replaceElement(searchedNfts, nftsEl, getNft);
-  toggleShownSortButtons(searchedNfts);
   resetElement(autocompletesUl);
   resetClickedSortButtons();
 }
@@ -132,13 +131,7 @@ function sortByPrice(n, m) {
   return a < b ? 1 : -1;
 }
 
-function toggleShownSortButtons(filteredNfts) {
-  if (filteredNfts.length) {
-    sortEl.classList.remove("hidden");
-  } else {
-    sortEl.classList.add("hidden");
-  }
-}
+
 
 function toggleClickedSortButtons(buttonName) {
   if (buttonName === "name") {
