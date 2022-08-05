@@ -11,7 +11,7 @@ body {
   background-color: white;
 }
 
-.header {
+header {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -23,11 +23,6 @@ main {
   flex-direction: column;
   align-items: center;
   margin-top: 152px;
-}
-.logo {
-  font-size: 96px;
-  font-weight: 800;
-  line-height: 116px;
 }
 
 input {
@@ -52,6 +47,12 @@ input::placeholder {
   font-size: 20px;
 }
 
+.logo {
+  font-size: 96px;
+  font-weight: 800;
+  line-height: 116px;
+}
+
 .search-bar {
   margin-top: 54px;
   width: 500px;
@@ -61,6 +62,11 @@ input::placeholder {
   border: 2px solid #e5e8eb;
   border-radius: 10px;
   position: relative;
+}
+
+.icon {
+  display: block;
+  margin-left: 12px;
 }
 
 .search-bar__autocompletes {
@@ -90,6 +96,7 @@ input::placeholder {
   color: red;
   cursor: pointer;
 }
+
 .sort-buttons {
   display: flex;
   flex-direction: row;
@@ -101,6 +108,10 @@ input::placeholder {
 
 .sort-buttons > div:last-child {
   margin-left: 15px;
+}
+
+.clicked {
+  color: red;
 }
 
 .nfts {
@@ -145,13 +156,4 @@ input::placeholder {
 .nft__detail__price > p:first-child {
   margin-bottom: 6px;
   font-weight: 800;
-}
-
-.clicked {
-  color: red;
-}
-
-.icon {
-  display: block;
-  margin-left: 12px;
 }
